@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux'; //this is a higher order component that lets you modify the component to have access to redux
 //higher order components are funcitons that take components as args and reutns a new suped-up component.
 
@@ -22,6 +22,7 @@ class App extends React.Component {
     const {setCurrentUser} = this.props;
     
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      //if user is authenticated ... else
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
@@ -29,7 +30,7 @@ class App extends React.Component {
           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data(),
-          })
+          });
         });
       } else {
         setCurrentUser(userAuth);
@@ -48,15 +49,34 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage} />{" "}
           <Route path="/shop" component={ShopPage} />{" "}
-          <Route path="/signin" component={SignInAndSignUpPage} />{" "}
-        </Switch>{" "}
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? (
+                <Redirect to="/" />
+              ) : (
+                <SignInAndSignUpPage />
+              )
+            }
+          />
+        </Switch>
       </div>
     );
   }
 }
 
+//SINCE WE NEED THE CURRENT USER STATE TO KNOW WHETHER TO DISPLAY THE SIGNIN PAGE OR NOT, WE  NEED TO MAP THE STATE TO THE COMPONENT TO GET ACCESS TO THE USER OBJECT
+
+//destructure user reducer from state
+const mapStateToProps = ({ user }) => ({
+  //return currentUser prop
+  currentUser: user.currentUser
+})
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(null, mapDispatchToProps)(App);
+//pass mapStateToProps to the component via connect() so the component can have access to this.props.currentUser
+export default connect(mapStateToProps, mapDispatchToProps)(App);

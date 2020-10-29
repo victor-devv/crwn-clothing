@@ -34,8 +34,11 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
+//mapStateToProps means put(map) the current app state as a prop to the component
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser
-})
+}) //you can also destructure user from state and call user.currentUser directly instead of state.blah blah
+
+//pass mapStateToProps to the component via connect() so the component can have access to this.props.currentUser
 
 export default connect(mapStateToProps)(Header);
