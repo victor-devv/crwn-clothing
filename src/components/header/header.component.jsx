@@ -5,11 +5,14 @@ import { connect } from 'react-redux'; //this is a higher order component that l
 
 import { auth } from "../../firebase/firebase.utils";
 
+import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 import "./header.styles.scss";
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
   <div className="header">
     <Link className="logo-container" to="/">
       <Logo className="logo" />
@@ -30,14 +33,18 @@ const Header = ({ currentUser }) => (
           SIGN IN
         </Link>
       )}
+
+      <CartIcon />
     </div>
+    {hidden ? null : <CartDropdown />}
   </div>
 );
 
 //mapStateToProps means put(map) the current app state as a prop to the component
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
-}) //you can also destructure user from state and call user.currentUser directly instead of state.blah blah
+const mapStateToProps = ({user: { currentUser }, cart: { hidden }}) => ({
+  currentUser,
+  hidden
+}) //advance destructuring. From state, destructure user and from user, destructure currentUser...
 
 //pass mapStateToProps to the component via connect() so the component can have access to this.props.currentUser
 
