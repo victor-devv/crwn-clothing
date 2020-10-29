@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux'; //this is a higher order component that lets you modify the component to have access to redux
+//higher order components are funcitons that take components as args and reutns a new suped-up component.
 
 import { auth } from "../../firebase/firebase.utils";
 
@@ -32,4 +34,8 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
-export default Header;
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(Header);
