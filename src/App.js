@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux'; //this is a higher order component that lets you modify the component to have access to redux
-//higher order components are funcitons that take components as args and reutns a new suped-up component.
+//higher order components are functions that take components as args and returns a new suped-up component.
 
 import "./App.css";
 
