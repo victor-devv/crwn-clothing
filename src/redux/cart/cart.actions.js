@@ -9,3 +9,14 @@ export const addItem = item => ({
   type: CartActionTypes.ADD_ITEM,
   payload: item
 }); //this gets the item that we want to add to the cartItems array and it returns the new action type object which tells the reducer it wants to add an item (payload)
+
+export const removeItem = (item) => ({
+  type: CartActionTypes.REMOVE_ITEM,
+  payload: item,
+});
+
+export const clearItemFromCart = (item) => ({
+  type: CartActionTypes.CLEAR_ITEM_FROM_CART,
+  payload: item,
+});
+
