@@ -15,6 +15,7 @@ ReactDOM.render(
   // pass the redux store to the provider. The provider will then give (provide) the redux store context to the rest of the application, so we can dispatch actions to the store or pull values from the store into components
   <Provider store={store}>
     <BrowserRouter>
+      {/* persistgate provides the persisted store to the application */}
       <PersistGate persistor={persistor}>
         <App />
       </PersistGate>
