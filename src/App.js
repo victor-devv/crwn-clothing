@@ -19,7 +19,7 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 //redux
 import { setCurrentUser } from "./redux/user/user.actions";
-import { selectCurrentUSer } from "./redux/user/user.selectors";
+import { selectCurrentUser } from "./redux/user/user.selectors";
 // import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
 
 //styles
@@ -90,7 +90,7 @@ class App extends React.Component {
 //destructure user reducer from state
 const mapStateToProps = createStructuredSelector({
   //return currentUser prop
-  currentUser: selectCurrentUSer,
+  currentUser: selectCurrentUser,
   // collectionsArray: selectCollectionsForPreview
 });
 

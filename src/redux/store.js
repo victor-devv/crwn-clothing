@@ -1,11 +1,12 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import { persistStore } from 'redux-persist'
 import logger from "redux-logger";
+import thunk from 'redux-thunk';
 
 import rootReducer from "./root-reducer";
 
 // add middlewares to catch actions. middlewares stand between action and root reducers and they are just functions that receive actions and do something with them and then pass them to the root reducer 
-const middlewares = [logger];
+const middlewares = [thunk, logger];
 
 export const store = createStore(
   rootReducer,
