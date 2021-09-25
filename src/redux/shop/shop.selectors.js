@@ -7,15 +7,15 @@ export const selectCollections = createSelector(
   shop => shop.collections
 );
 
-    // get keys as array, map over them and get value of collection objects as value of each key
+// get keys as array, map over them and get value of collection objects as value of each key
 
 export const selectCollectionsForPreview = createSelector(
   [selectCollections],
-  collections => Object.keys(collections).map(key => collections[key])
+  collections => collections ? Object.keys(collections).map(key => collections[key]) : []
 );
 
 export const selectCollection = collectionUrlParam =>
   createSelector(
     [selectCollections],
-    collections => collections[collectionUrlParam]
+    collections => (collections ? collections[collectionUrlParam] : null)
   );
