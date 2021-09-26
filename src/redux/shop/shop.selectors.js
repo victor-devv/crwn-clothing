@@ -25,6 +25,12 @@ export const selectIsCollectionFetching = createSelector(
   shop => shop.isFetching
 )
 
+export const selectIsCollectionsLoaded = createSelector(
+  [selectShop],
+  shop => !!shop.collections
+) //!! converts value to its truthy ir falsy value
+
+
 export const selectErrorMessage = createSelector(
   [selectShop],
   shop => shop.errorMessage
